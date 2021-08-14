@@ -19,21 +19,23 @@ public class RunResourceCollect {
             String [] lineTwo = scFile.nextLine().split("|");
             int len = lineTwo.length;
 
-            String resourceID = lineTwo[0];
-
+            String [] resourceIDs = new String[len];
+            String [] numberOfClusters = new String[len];
+            String [] quota = new String[NQ];
+            
+            for(int i = 0; i < len; i++){
+                resourceIDs[i] = lineTwo[i].split(",")[0];
+                numberOfClusters[i] = lineTwo[i].split(",")[1];
+            }
 
             for(int i = 0; i < NQ; i++){
-
+                // quota[i] = scLine.
             }
 
             for(int i = 0; i < UR; i++){
 
             }
-            while(scFile.hasNext()){
-                String [] line = scFile.nextLine("|");
 
-
-            }
         }catch (Exception e){
             System.out.println("file not found");
         }
