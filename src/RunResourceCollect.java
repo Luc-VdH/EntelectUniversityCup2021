@@ -5,7 +5,7 @@ import java.lang.Math;
 public class RunResourceCollect {
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy1.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy3.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
