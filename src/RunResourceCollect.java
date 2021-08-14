@@ -113,7 +113,10 @@ public class RunResourceCollect {
     }
 
     public static int[] calcQuotas(int outpostThreshold, String [] quotas){
-        int [] qs = new int[quotas.length];
+        int [] qs = new int[10];
+        for(int i = 0; i < 10; i++){
+            qs[i] = 0;
+        }
         for(int i = 0; i < quotas.length; i++){
             qs[i] = (int)(outpostThreshold*(Double.parseDouble(quotas[i])/100));
             System.out.println(quotas[i]);
