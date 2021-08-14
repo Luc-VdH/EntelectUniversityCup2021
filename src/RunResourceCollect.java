@@ -48,6 +48,10 @@ public class RunResourceCollect {
                 String [] singleR = r.split(",");
             }
 
+            int currentResourceVol = 0;
+
+
+
         }catch (Exception e){
             System.out.println("file not found");
         }
@@ -55,5 +59,13 @@ public class RunResourceCollect {
 
     public int dist(int x, int y, int z){
         return (int)Math.round(Math.sqrt(x*x + y*y + z*z));
+    }
+
+    public void resPoints(){
+
+    }
+
+    public int[] calcQuotas(int outpostThreshold, String [] quotas){
+        
     }
 }
