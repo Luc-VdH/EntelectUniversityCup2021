@@ -1,4 +1,4 @@
-public class ResourceCluster {
+public class ResourceCluster implements Comparable<ResourceCluster> {
     public int rID = 0;
     public int x = 0;
     public int y = 0;
@@ -12,7 +12,9 @@ public class ResourceCluster {
     public int PT = 0;
     public double BM = 0;
 
-    public ResourceCluster(int id, int x, int y, int z, String nme, int r) {
+    
+
+    public ResourceCluster(int id, int x, int y, int z, String nme, int r){
         rID = id;
         switch (id) {
             case 1:
@@ -93,5 +95,10 @@ public class ResourceCluster {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    @Override
+    public int compareTo(ResourceCluster o) {
+        return Integer.compare(points, o.points);
     }
 }
