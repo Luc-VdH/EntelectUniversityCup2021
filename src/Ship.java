@@ -18,13 +18,14 @@ public class Ship {
         this.z = z;
         
     }
-    public void addResource(ResourceCluster r, int amount){
-        currentInHold += amount;
+    public void addResource(ResourceCluster r){
+        currentInHold += r.rAmount;
         resources[rCount] = r;
         rCount++;
     }
     public void clearResources(){
         resources = new ResourceCluster[100];
+        rCount = 0;
     }
     public void addToPath(String s){
         path.add(s);
