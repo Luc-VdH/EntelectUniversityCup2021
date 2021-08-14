@@ -32,8 +32,16 @@ public class RunResourceCollect {
                 // quota[i] = scLine.
             }
 
+            int numClustsTot = 0;
+            for (int i = 0; i < numberOfClusters.length; i++) {
+                numClustsTot += Integer.parseInt(numberOfClusters[i]);
+            }
+            ResourceCluster [] clusters = new ResourceCluster[numClustsTot];
+            String rLine = scFile.nextLine();
+            String [] rArr = rLine.split("|");
             for(int i = 0; i < UR; i++){
-
+                String r = rArr[i];
+                String [] singleR = r.split(",");
             }
 
         }catch (Exception e){
