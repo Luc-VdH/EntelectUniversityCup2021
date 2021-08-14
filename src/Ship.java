@@ -5,7 +5,7 @@ public class Ship {
     public int y = 0;
     public int z = 0;
     public ArrayList<String> path = new ArrayList<String>();
-    public ResourceCluster [] resources = new ResourceCluster[100];
+    public ResourceCluster [] resources = new ResourceCluster[1000000];
     public int rCount = 0;
     public int capacity = 0;
     public int currentInHold = 0;
@@ -24,7 +24,7 @@ public class Ship {
         rCount++;
     }
     public void clearResources(){
-        resources = new ResourceCluster[100];
+        resources = new ResourceCluster[1000000];
         rCount = 0;
     }
     public void addToPath(String s){
@@ -32,8 +32,8 @@ public class Ship {
     }
     public String toString(){
         if(path.size() != 0){
-            if(path.get(path.size()).equals("0")){
-                return String.join(",", path) + "0";
+            if(!path.get(path.size()-1).equals("0")){
+                return String.join(",", path) + ",0";
             }
             return String.join(",", path);
         }
