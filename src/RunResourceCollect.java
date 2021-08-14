@@ -1,7 +1,6 @@
-import Math;
 import java.util.*;
 import java.io.*;
-
+import java.lang.Math;
 
 public class RunResourceCollect {
     public static void main(String[] args) {
@@ -18,10 +17,18 @@ public class RunResourceCollect {
 
             //LINE TWO
             String [] lineTwo = scFile.nextLine().split("|");
-            String len = lineTwo.length;
-            
+            int len = lineTwo.length;
+
             String resourceID = lineTwo[0];
-            String
+
+
+            for(int i = 0; i < NQ; i++){
+
+            }
+
+            for(int i = 0; i < UR; i++){
+
+            }
             while(scFile.hasNext()){
                 String [] line = scFile.nextLine("|");
 
@@ -33,6 +40,6 @@ public class RunResourceCollect {
     }
 
     public int dist(int x, int y, int z){
-        return Math.round(Math.sqrt(x*x + y*y + z*z));
+        return (int)Math.round(Math.sqrt(x*x + y*y + z*z));
     }
 }
