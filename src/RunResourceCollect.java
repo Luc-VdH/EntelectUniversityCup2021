@@ -29,11 +29,15 @@ public class RunResourceCollect {
             }
 
             for(int i = 0; i < NQ; i++){
-                // quota[i] = scLine.
+                quota[i] = scFile.nextLine().split("|")[1]; //NOTE THAT THESE ARE PERCENTAGES
+            }
+            Resource [] res = new Resource[NQ];
+            for(int i = 0; i < NQ; i++){
+                res[i] = new Resource(Integer.parseInt(resourceIDs[i]), Integer.parseInt(numberOfClusters[i]), Integer.parseInt(quota[i]));
             }
 
             for(int i = 0; i < UR; i++){
-
+                
             }
 
         }catch (Exception e){
