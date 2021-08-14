@@ -1,10 +1,10 @@
 public class ResourceCluster {
-    int x = 0;
-    int y = 0;
-    int z = 0;
-    String rName = "";
-    int rAmount = 0;
-
+    public int x = 0;
+    public int y = 0;
+    public int z = 0;
+    public String rName = "";
+    public int rAmount = 0;
+    public int points = 0;
     public ResourceCluster(int x, int y, int z, String nme, int r){
         this.x = x;
         this.y = y;
@@ -15,5 +15,9 @@ public class ResourceCluster {
 
     public void takeResource(){
         rAmount = 0;
+    }
+
+    public void setPoints(int points){
+        this.points = points;
     }
 }

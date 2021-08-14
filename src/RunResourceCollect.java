@@ -64,8 +64,11 @@ public class RunResourceCollect {
         return (int)Math.round(Math.sqrt(x*x + y*y + z*z));
     }
 
-    public void resPoints(){
-        
+    public void resPoints(ResourceCluster [] c){
+        for(int i = 0; i < c.length; i++){
+            int dist = (int)(dist(c[i].x, c[i].y, c[i].z)*0.1);
+            c[i].setPoints();
+        }
     }
 
     public int[] calcQuotas(int outpostThreshold, String [] quotas){
