@@ -3,9 +3,10 @@ import java.io.*;
 import java.lang.Math;
 
 public class RunResourceCollect {
+    public static Ship [] ships;
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy1.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy2.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
@@ -36,7 +37,7 @@ public class RunResourceCollect {
                 res[i] = new Resource(Integer.parseInt(resourceIDs[i]), Integer.parseInt(numberOfClusters[i]), Integer.parseInt(quota[i]));
             }
 
-            Ship [] ships = new Ship[numShips];
+            ships = new Ship[numShips];
             for (int i = 0; i < numShips; i++) {
                 ships[i] = new Ship(shipCap);
             }
@@ -85,6 +86,8 @@ public class RunResourceCollect {
                             ships[j].addToPath("0");
                             ships[j].clearResources();
                             ships[j].currentInHold = 0;
+                            resPoints(clusters);
+                            Arrays.sort(clusters);
                         }else{
                             ships[j].setPosition(current.x, current.y, current.z);
                             ships[j].addToPath(current.rName);
@@ -92,8 +95,11 @@ public class RunResourceCollect {
                             ships[j].currentInHold += current.rAmount;
                             currentResourceVol += current.rAmount;
                             quotaInts[current.rID-1] -= current.rAmount;
+                            resPoints(clusters);
+                            Arrays.sort(clusters);
                             break;
                         }
+                        
                     }
                 }
                 
@@ -118,8 +124,19 @@ public class RunResourceCollect {
 
         for(int i = 0; i < c.length; i++){
             ResourceCluster ci = c[i];
-            int dist = (int)(dist(c[i].x, c[i].y, c[i].z)*0.1);
-            int pts = (int)((ci.PP + ci.PC - ci.PT*0.1)*ci.BM - dist);
+            Ship close = ships[0];
+            int max = 10000;
+            int maxI = 0;
+            int dist = 0;
+            for(int j = 0; j < ships.length; j++){
+                // System.out.println(ships[j].x + "\t" +ships[j].y+ "\t" + ships[j].z);
+                dist = distRel(ships[j].x, ships[j].y, ships[j].z, ci.x,  ci.y,  ci.z);
+                if(max > dist){
+                    max = dist;
+                    maxI = j;
+                }
+            }
+            int pts = (int)((ci.PP + ci.PC - ci.PT*0.1)*ci.BM - dist*0.1);
             c[i].setPoints(pts);
         }
     }

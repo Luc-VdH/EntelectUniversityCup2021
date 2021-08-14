@@ -11,7 +11,7 @@ public class ResourceCluster implements Comparable<ResourceCluster> {
     public int PP = 0;
     public int PT = 0;
     public double BM = 0;
-
+    public int bestDist = 100000000;
     
 
     public ResourceCluster(int id, int x, int y, int z, String nme, int r){
