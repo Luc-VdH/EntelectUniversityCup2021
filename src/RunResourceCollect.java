@@ -63,6 +63,9 @@ public class RunResourceCollect {
             int currentResourceVol = 0;
             resPoints(clusters);
             int [] quotaInts = calcQuotas(outpostThreshold, quota);
+            for (int i = 0; i < quotaInts.length; i++) {
+                System.out.println(quotaInts[i]);
+            }
 
             // Arrays.sort(clusters);
             clusters.sort(new Comparator<ResourceCluster>(){
@@ -87,7 +90,8 @@ public class RunResourceCollect {
             
             
 
-            while(currentResourceVol <= outpostThreshold + 1000){
+            while(currentResourceVol <= outpostThreshold){
+                
                 // if(clusters.size()%10 == 0){
                 //     System.out.println(currentResourceVol);
                 // }
@@ -139,6 +143,10 @@ public class RunResourceCollect {
                 }
                 
             }
+            System.out.println("---------------------");
+            for (int i = 0; i < quotaInts.length; i++) {
+                System.out.println(quotaInts[i]);
+            }
 
             writeFile(ships);
         }catch (Exception e){
@@ -171,7 +179,10 @@ public class RunResourceCollect {
                     maxI = j;
                 }
             }
-            int pts = (int)((ci.PP + ci.PC - ci.PT*0.1)*ci.BM - dist*0.1);
+            int pts = (int)(Math.pow((ci.PP + ci.PC - ci.PT*0.1)*ci.BM, ci.rID) - dist*0.01);
+            //System.out.println(ci.PP + " - " + ci.PC + " - " + ci.PT + " - " + ci.BM);
+            //System.out.println(pts + " = " + ((ci.PP + ci.PC - ci.PT*0.1)*ci.BM) + " - " + (dist*0.1) + ": ID= " + ci.rID);
+            
             c.get(i).setPoints(pts);
         }
     }
