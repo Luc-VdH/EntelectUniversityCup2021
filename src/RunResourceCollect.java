@@ -65,10 +65,14 @@ public class RunResourceCollect {
     }
 
     public void resPoints(){
-
+        
     }
 
     public int[] calcQuotas(int outpostThreshold, String [] quotas){
-        
+        int [] qs = new int[quotas.length];
+        for(int i = 0; i < quotas.length; i++){
+            qs[i] = outpostThreshold*(Integer.parseInt(quotas[i])/100);
+        }
+        return qs;
     }
 }
