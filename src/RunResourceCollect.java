@@ -53,7 +53,8 @@ public class RunResourceCollect {
             }
 
             int currentResourceVol = 0;
-
+            resPoints(clusters);
+            int [] quotaInts = calcQuotas(outpostThreshold, quota);
 
 
         }catch (Exception e){
@@ -61,18 +62,21 @@ public class RunResourceCollect {
         }
     }
 
-    public int dist(int x, int y, int z){
+    public static int dist(int x, int y, int z){
         return (int)Math.round(Math.sqrt(x*x + y*y + z*z));
     }
 
-    public void resPoints(ResourceCluster [] c){
+    public static void resPoints(ResourceCluster [] c){
+
         for(int i = 0; i < c.length; i++){
+            ResourceCluster ci = c[i];
             int dist = (int)(dist(c[i].x, c[i].y, c[i].z)*0.1);
-            c[i].setPoints();
+            int pts = (int)((ci.PP + ci.PC - ci.PT*0.1)*ci.BM - dist);
+            c[i].setPoints(pts);
         }
     }
 
-    public int[] calcQuotas(int outpostThreshold, String [] quotas){
+    public static int[] calcQuotas(int outpostThreshold, String [] quotas){
         int [] qs = new int[quotas.length];
         for(int i = 0; i < quotas.length; i++){
             qs[i] = outpostThreshold*(Integer.parseInt(quotas[i])/100);
