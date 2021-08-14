@@ -5,7 +5,7 @@ import java.lang.Math;
 public class RunResourceCollect {
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy5.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy2.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
@@ -72,21 +72,21 @@ public class RunResourceCollect {
                 }
                 ResourceCluster current = clusters[i];
                 if(quotaInts[current.rID-1] > 0){
-                    int j = 0;
-                    for (; j < ships.length; j++) {
+                    
+                    for (int j = 0; j < ships.length; j++) {
                         if(ships[j].currentInHold > ships[j].capacity){
                             ships[j].setPosition(0, 0, 0);
                             ships[j].addToPath("0");
                             ships[j].clearResources();
                         }else{
+                            ships[j].setPosition(current.x, current.y, current.z);
+                            ships[j].addToPath(current.rName);
+                            ships[j].addResource(current);
+                            currentResourceVol += current.rAmount;
+                            quotaInts[current.rID-1] -= current.rAmount;
                             break;
                         }
                     }
-                    ships[j].setPosition(current.x, current.y, current.z);
-                    ships[j].addToPath(current.rName);
-                    ships[j].addResource(current);
-                    currentResourceVol += current.rAmount;
-                    quotaInts[current.rID-1] -= current.rAmount;
                 }
                 
             }
