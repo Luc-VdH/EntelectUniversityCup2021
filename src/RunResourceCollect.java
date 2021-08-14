@@ -72,22 +72,22 @@ public class RunResourceCollect {
                 }
             });
 
-            for(int i = 0; i < ships.length; i++){
-                ResourceCluster current = clusters.get(0);
-                clusters.remove(0);
-                ships[i].setPosition(current.x, current.y, current.z);
-                ships[i].addToPath(current.rName);
-                ships[i].addResource(current);
-                ships[i].currentInHold += current.rAmount;
-                currentResourceVol += current.rAmount;
-                quotaInts[current.rID-1] -= current.rAmount;
-            }
+            // for(int i = 0; i < ships.length; i++){
+            //     ResourceCluster current = clusters.get(0);
+            //     clusters.remove(0);
+            //     ships[i].setPosition(current.x, current.y, current.z);
+            //     ships[i].addToPath(current.rName);
+            //     ships[i].addResource(current);
+            //     ships[i].currentInHold += current.rAmount;
+            //     currentResourceVol += current.rAmount;
+            //     quotaInts[current.rID-1] -= current.rAmount;
+            // }
 
             ArrayList<ResourceCluster> visited = new ArrayList<ResourceCluster>();
             
             
 
-            while(currentResourceVol <= outpostThreshold){
+            while(currentResourceVol <= outpostThreshold + 1000){
                 // if(clusters.size()%10 == 0){
                 //     System.out.println(currentResourceVol);
                 // }
