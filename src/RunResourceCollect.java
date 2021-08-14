@@ -6,7 +6,7 @@ public class RunResourceCollect {
     public static Ship [] ships;
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy1.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy4.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
@@ -73,7 +73,8 @@ public class RunResourceCollect {
             });
 
             for(int i = 0; i < ships.length; i++){
-                ResourceCluster current = clusters.get(i);
+                ResourceCluster current = clusters.get(0);
+                clusters.remove(0);
                 ships[i].setPosition(current.x, current.y, current.z);
                 ships[i].addToPath(current.rName);
                 ships[i].addResource(current);
@@ -87,9 +88,9 @@ public class RunResourceCollect {
             
 
             while(currentResourceVol <= outpostThreshold){
-                if(clusters.size()%10 == 0){
-                    System.out.println(currentResourceVol);
-                }
+                // if(clusters.size()%10 == 0){
+                //     System.out.println(currentResourceVol);
+                // }
                 if(clusters.size() == 0){
                     break;
                 }
