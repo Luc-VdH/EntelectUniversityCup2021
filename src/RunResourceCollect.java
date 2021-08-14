@@ -6,7 +6,7 @@ public class RunResourceCollect {
     public static Ship [] ships;
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy2.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy5.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
@@ -46,7 +46,7 @@ public class RunResourceCollect {
             for (int i = 0; i < numberOfClusters.length; i++) {
                 numClustsTot += Integer.parseInt(numberOfClusters[i]);
             }
-            ResourceCluster [] clusters = new ResourceCluster[numClustsTot];
+            ArrayList<ResourceCluster> clusters = new ArrayList<ResourceCluster>(numClustsTot);
             int clustCount = 0;
             
             for(int i = 0; i < UR; i++){
@@ -55,7 +55,7 @@ public class RunResourceCollect {
                 int id = Integer.parseInt(r[0]);
                 for (int j = 1; j < r.length; j++) {
                     String [] rArr = r[j].split(",");
-                    clusters[clustCount] = new ResourceCluster(id, Integer.parseInt(rArr[1]), Integer.parseInt(rArr[2]), Integer.parseInt(rArr[3]), rArr[0], Integer.parseInt(rArr[4]));
+                    clusters.add(new ResourceCluster(id, Integer.parseInt(rArr[1]), Integer.parseInt(rArr[2]), Integer.parseInt(rArr[3]), rArr[0], Integer.parseInt(rArr[4])));
                     clustCount++;
                 }
             }
@@ -64,14 +64,34 @@ public class RunResourceCollect {
             resPoints(clusters);
             int [] quotaInts = calcQuotas(outpostThreshold, quota);
 
-            Arrays.sort(clusters);
-            int shipIndex = 0;
-
-            for (int i = 0; i < clusters.length; i++) {
-                if(currentResourceVol >= outpostThreshold){
-                    break;
+            // Arrays.sort(clusters);
+            clusters.sort(new Comparator<ResourceCluster>(){
+                @Override
+                public int compare(ResourceCluster x1, ResourceCluster x2){
+                    return x1.compareTo(x2);
                 }
-                ResourceCluster current = clusters[i];
+            });
+
+            for(int i = 0; i < ships.length; i++){
+                ResourceCluster current = clusters.get(i);
+                ships[i].setPosition(current.x, current.y, current.z);
+                ships[i].addToPath(current.rName);
+                ships[i].addResource(current);
+                ships[i].currentInHold += current.rAmount;
+                currentResourceVol += current.rAmount;
+                quotaInts[current.rID-1] -= current.rAmount;
+            }
+
+            ArrayList<ResourceCluster> visited = new ArrayList<ResourceCluster>();
+            
+            
+
+            while(currentResourceVol <= outpostThreshold){
+                if(clusters.size()%10 == 0){
+                    System.out.println(currentResourceVol);
+                }
+                ResourceCluster current = clusters.get(0);
+                clusters.remove(0);
                 if(quotaInts[current.rID-1] > 0){
                     
                     for(int k = 0; k < ships.length; k++){
@@ -87,7 +107,12 @@ public class RunResourceCollect {
                             ships[j].clearResources();
                             ships[j].currentInHold = 0;
                             resPoints(clusters);
-                            Arrays.sort(clusters);
+                            clusters.sort(new Comparator<ResourceCluster>(){
+                                @Override
+                                public int compare(ResourceCluster x1, ResourceCluster x2){
+                                    return x1.compareTo(x2);
+                                }
+                            });
                         }else{
                             ships[j].setPosition(current.x, current.y, current.z);
                             ships[j].addToPath(current.rName);
@@ -95,8 +120,14 @@ public class RunResourceCollect {
                             ships[j].currentInHold += current.rAmount;
                             currentResourceVol += current.rAmount;
                             quotaInts[current.rID-1] -= current.rAmount;
+                            visited.add(current);
                             resPoints(clusters);
-                            Arrays.sort(clusters);
+                            clusters.sort(new Comparator<ResourceCluster>(){
+                                @Override
+                                public int compare(ResourceCluster x1, ResourceCluster x2){
+                                    return x1.compareTo(x2);
+                                }
+                            });
                             break;
                         }
                         
@@ -120,10 +151,10 @@ public class RunResourceCollect {
         return (int)Math.round(Math.sqrt(Math.pow(x1-x,2)+ Math.pow(y1-y,2) + Math.pow(z1-z,2)));
     }
 
-    public static void resPoints(ResourceCluster [] c){
+    public static void resPoints(ArrayList<ResourceCluster> c){
 
-        for(int i = 0; i < c.length; i++){
-            ResourceCluster ci = c[i];
+        for(int i = 0; i < c.size(); i++){
+            ResourceCluster ci = c.get(i);
             Ship close = ships[0];
             int max = 10000;
             int maxI = 0;
@@ -137,7 +168,7 @@ public class RunResourceCollect {
                 }
             }
             int pts = (int)((ci.PP + ci.PC - ci.PT*0.1)*ci.BM - dist*0.1);
-            c[i].setPoints(pts);
+            c.get(i).setPoints(pts);
         }
     }
 
