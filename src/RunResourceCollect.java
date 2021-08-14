@@ -69,7 +69,7 @@ public class RunResourceCollect {
                 if(quotaInts[current.rID] != 0){
                     int j = 0;
                     for (; j < ships.length; j++) {
-                        if(ships[i].currentInHold + current.rAmount < ships[i].capacity){
+                        if(ships[j].currentInHold + current.rAmount < ships[j].capacity){
                             break;
                         }
                     }
