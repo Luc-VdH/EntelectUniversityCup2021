@@ -61,6 +61,14 @@ public class RunResourceCollect {
             resPoints(clusters);
             int [] quotaInts = calcQuotas(outpostThreshold, quota);
 
+            Arrays.sort(clusters);
+
+            int collected = 0;
+
+            while(collected <= outpostThreshold){
+                
+            }
+
 
         }catch (Exception e){
             System.out.println("file not found");
