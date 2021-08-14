@@ -99,6 +99,6 @@ public class ResourceCluster implements Comparable<ResourceCluster> {
 
     @Override
     public int compareTo(ResourceCluster o) {
-        return Integer.compare(points, o.points);
+        return -1*Integer.compare(points, o.points);
     }
 }

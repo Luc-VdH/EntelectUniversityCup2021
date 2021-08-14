@@ -73,7 +73,13 @@ public class RunResourceCollect {
                 ResourceCluster current = clusters[i];
                 if(quotaInts[current.rID-1] > 0){
                     
+                    for(int k = 0; k < ships.length; k++){
+                        int dist = distRel(ships[k].x, ships[k].y, ships[k].z, current.x,  current.y,  current.z);
+                        ships[k].setDistance(dist);
+                    }
+                    Arrays.sort(ships);
                     for (int j = 0; j < ships.length; j++) {
+
                         if(ships[j].currentInHold > ships[j].capacity){
                             ships[j].setPosition(0, 0, 0);
                             ships[j].addToPath("0");
@@ -102,6 +108,10 @@ public class RunResourceCollect {
 
     public static int dist(int x, int y, int z){
         return (int)Math.round(Math.sqrt(x*x + y*y + z*z));
+    }
+
+    public static int distRel(int x, int y, int z, int x1, int y1, int z1){
+        return (int)Math.round(Math.sqrt(Math.pow(x1-x,2)+ Math.pow(y1-y,2) + Math.pow(z1-z,2)));
     }
 
     public static void resPoints(ResourceCluster [] c){

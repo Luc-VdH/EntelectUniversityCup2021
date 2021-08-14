@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Ship {
+public class Ship implements Comparable<Ship> {
     public int x = 0;
     public int y = 0;
     public int z = 0;
@@ -9,6 +9,7 @@ public class Ship {
     public int rCount = 0;
     public int capacity = 0;
     public int currentInHold = 0;
+    public int distance = 0;
     public Ship(int cap){
         capacity = cap;
     }
@@ -39,4 +40,14 @@ public class Ship {
         }
         return "";
     }
+
+    public void setDistance(int distance){
+        this.distance = distance;
+    }
+
+    @Override
+    public int compareTo(Ship o) {
+        return Integer.compare(distance, o.distance);
+    }
+    
 }
