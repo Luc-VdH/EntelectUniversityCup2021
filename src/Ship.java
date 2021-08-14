@@ -29,4 +29,7 @@ public class Ship {
     public void addToPath(String s){
         path.add(s);
     }
+    public String toString(){
+        return String.join(",", path) + "0";
+    }
 }

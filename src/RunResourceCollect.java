@@ -104,4 +104,11 @@ public class RunResourceCollect {
         }
         return qs;
     }
+    public static void writeFile(Ship [] ships) throws IOException{
+        FileWriter w = new FileWriter("output.txt");
+        for(int i = 0; i < ships.length; i++){
+            w.write(ships[i].toString());
+        }
+        w.close();
+    }
 }
