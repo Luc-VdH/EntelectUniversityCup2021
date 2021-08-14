@@ -9,8 +9,8 @@ public class Ship {
     int rCount = 0;
     int capacity = 0;
     int currentInHold = 0;
-    public Ship(){
-
+    public Ship(int cap){
+        capacity = cap;
     }
     public void setPosition(int x, int y, int z, int capacity){
         this.x = x;

@@ -36,6 +36,11 @@ public class RunResourceCollect {
                 res[i] = new Resource(Integer.parseInt(resourceIDs[i]), Integer.parseInt(numberOfClusters[i]), Integer.parseInt(quota[i]));
             }
 
+            Ship [] ships = new Ship[numShips];
+            for (int i = 0; i < numShips; i++) {
+                ships[i] = new Ship(shipCap);
+            }
+
             int numClustsTot = 0;
             for (int i = 0; i < numberOfClusters.length; i++) {
                 numClustsTot += Integer.parseInt(numberOfClusters[i]);
