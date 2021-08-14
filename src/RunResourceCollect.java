@@ -7,7 +7,7 @@ public class RunResourceCollect {
         try{
             Scanner scFile = new Scanner(new File("src/galaxy1.txt"));
             //LINE ONE
-            String [] lineOne = scFile.nextLine().split(".");
+            String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
             int numShips = Integer.parseInt(lineOne[1]);
             int shipCap = Integer.parseInt(lineOne[2]);
@@ -16,7 +16,7 @@ public class RunResourceCollect {
             int NQ = Integer.parseInt(lineOne[5]); //NQ - Number of Quotas (0 < NQ <= 10)
 
             //LINE TWO
-            String [] lineTwo = scFile.nextLine().split("|");
+            String [] lineTwo = scFile.nextLine().split("\\|");
             int len = lineTwo.length;
 
             String [] resourceIDs = new String[len];
@@ -29,7 +29,7 @@ public class RunResourceCollect {
             }
 
             for(int i = 0; i < NQ; i++){
-                quota[i] = scFile.nextLine().split("|")[1]; //NOTE THAT THESE ARE PERCENTAGES
+                quota[i] = scFile.nextLine().split("\\|")[1]; //NOTE THAT THESE ARE PERCENTAGES
             }
             Resource [] res = new Resource[NQ];
             for(int i = 0; i < NQ; i++){
@@ -50,10 +50,12 @@ public class RunResourceCollect {
             
             for(int i = 0; i < UR; i++){
                 String resourceLine = scFile.nextLine();
-                String [] rArr = resourceLine.split("|");
-                int id = Integer.parseInt(rArr[0]);
-                for (int j = 1; j < rArr.length; j++) {
+                String [] r = resourceLine.split("\\|");
+                int id = Integer.parseInt(r[0]);
+                for (int j = 1; j < r.length; j++) {
+                    String [] rArr = r[j].split(",");
                     clusters[clustCount] = new ResourceCluster(id, Integer.parseInt(rArr[1]), Integer.parseInt(rArr[2]), Integer.parseInt(rArr[3]), rArr[0], Integer.parseInt(rArr[4]));
+                    clustCount++;
                 }
             }
 
@@ -65,11 +67,14 @@ public class RunResourceCollect {
             int shipIndex = 0;
 
             for (int i = 0; i < clusters.length; i++) {
+                if(currentResourceVol >= outpostThreshold){
+                    break;
+                }
                 ResourceCluster current = clusters[i];
-                if(quotaInts[current.rID] != 0){
+                if(quotaInts[current.rID-1] > 0){
                     int j = 0;
                     for (; j < ships.length; j++) {
-                        if(ships[j].currentInHold + current.rAmount > ships[j].capacity){
+                        if(ships[j].currentInHold > ships[j].capacity){
                             ships[j].setPosition(0, 0, 0);
                             ships[j].addToPath("0");
                             ships[j].clearResources();
@@ -80,6 +85,8 @@ public class RunResourceCollect {
                     ships[j].setPosition(current.x, current.y, current.z);
                     ships[j].addToPath(current.rName);
                     ships[j].addResource(current);
+                    currentResourceVol += current.rAmount;
+                    quotaInts[current.rID-1] -= current.rAmount;
                 }
                 
             }
@@ -108,7 +115,9 @@ public class RunResourceCollect {
     public static int[] calcQuotas(int outpostThreshold, String [] quotas){
         int [] qs = new int[quotas.length];
         for(int i = 0; i < quotas.length; i++){
-            qs[i] = outpostThreshold*(Integer.parseInt(quotas[i])/100);
+            qs[i] = (int)(outpostThreshold*(Double.parseDouble(quotas[i])/100));
+            System.out.println(quotas[i]);
+
         }
         return qs;
     }

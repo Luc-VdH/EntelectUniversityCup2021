@@ -31,9 +31,12 @@ public class Ship {
         path.add(s);
     }
     public String toString(){
-        if(path.get(path.size()-1).equals("0")){
-            return String.join(",", path) + "0";
+        if(path.size() != 0){
+            if(path.get(path.size()).equals("0")){
+                return String.join(",", path) + "0";
+            }
+            return String.join(",", path);
         }
-        return String.join(",", path);
+        return "";
     }
 }
