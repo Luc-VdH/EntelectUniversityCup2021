@@ -6,7 +6,7 @@ public class RunResourceCollect {
     public static Ship [] ships;
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy5.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy1.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
@@ -89,6 +89,9 @@ public class RunResourceCollect {
             while(currentResourceVol <= outpostThreshold){
                 if(clusters.size()%10 == 0){
                     System.out.println(currentResourceVol);
+                }
+                if(clusters.size() == 0){
+                    break;
                 }
                 ResourceCluster current = clusters.get(0);
                 clusters.remove(0);
