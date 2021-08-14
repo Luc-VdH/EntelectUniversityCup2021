@@ -5,7 +5,7 @@ import java.lang.Math;
 public class RunResourceCollect {
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File("src/galaxy2.txt"));
+            Scanner scFile = new Scanner(new File("src/galaxy1.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split("\\|");
             int UR = Integer.parseInt(lineOne[0]);
@@ -78,10 +78,12 @@ public class RunResourceCollect {
                             ships[j].setPosition(0, 0, 0);
                             ships[j].addToPath("0");
                             ships[j].clearResources();
+                            ships[j].currentInHold = 0;
                         }else{
                             ships[j].setPosition(current.x, current.y, current.z);
                             ships[j].addToPath(current.rName);
                             ships[j].addResource(current);
+                            ships[j].currentInHold += current.rAmount;
                             currentResourceVol += current.rAmount;
                             quotaInts[current.rID-1] -= current.rAmount;
                             break;
@@ -127,7 +129,7 @@ public class RunResourceCollect {
     public static void writeFile(Ship [] ships) throws IOException{
         FileWriter w = new FileWriter("output.txt");
         for(int i = 0; i < ships.length; i++){
-            w.write(ships[i].toString());
+            w.write(ships[i].toString() + "\n");
         }
         w.close();
     }
