@@ -4,7 +4,7 @@ public class Ship {
     int x = 0;
     int y = 0;
     int z = 0;
-    ArrayList<String> path = new ArrayList<String>()
+    ArrayList<String> path = new ArrayList<String>();
     Resource [] resources = new Resource[100];
     int rCount = 0;
     int capacity = 0;
