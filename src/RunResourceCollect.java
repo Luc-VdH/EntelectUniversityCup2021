@@ -41,11 +41,14 @@ public class RunResourceCollect {
                 numClustsTot += Integer.parseInt(numberOfClusters[i]);
             }
             ResourceCluster [] clusters = new ResourceCluster[numClustsTot];
-            String rLine = scFile.nextLine();
-            String [] rArr = rLine.split("|");
+            int clustCount = 0;
+            
             for(int i = 0; i < UR; i++){
-                String r = rArr[i];
-                String [] singleR = r.split(",");
+                String resourceLine = scFile.nextLine();
+                String [] rArr = resourceLine.split("|");
+                for (int j = 1; j < rArr.length; j++) {
+                    clusters[clustCount] = new ResourceCluster(Integer.parseInt(rArr[1]), Integer.parseInt(rArr[2]), Integer.parseInt(rArr[3]), rArr[0], Integer.parseInt(rArr[4]));
+                }
             }
 
             int currentResourceVol = 0;
