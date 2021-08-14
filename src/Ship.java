@@ -30,6 +30,9 @@ public class Ship {
         path.add(s);
     }
     public String toString(){
-        return String.join(",", path) + "0";
+        if(path.get(path.size()-1).equals("0")){
+            return String.join(",", path) + "0";
+        }
+        return String.join(",", path);
     }
 }
