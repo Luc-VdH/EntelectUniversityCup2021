@@ -44,12 +44,8 @@ public class RunResourceCollect {
             String rLine = scFile.nextLine();
             String [] rArr = rLine.split("|");
             for(int i = 0; i < UR; i++){
-<<<<<<< HEAD
-                
-=======
                 String r = rArr[i];
                 String [] singleR = r.split(",");
->>>>>>> 319b1b01f37288b6259139a320982448de5423e8
             }
 
         }catch (Exception e){
