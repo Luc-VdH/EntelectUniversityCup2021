@@ -5,7 +5,7 @@ import java.lang.Math;
 public class RunResourceCollect {
     public static void main(String[] args) {
         try{
-            Scanner scFile = new Scanner(new File(""));
+            Scanner scFile = new Scanner(new File("Galaxy1.txt"));
             //LINE ONE
             String [] lineOne = scFile.nextLine().split(".");
             int UR = Integer.parseInt(lineOne[0]);
@@ -62,14 +62,22 @@ public class RunResourceCollect {
             int [] quotaInts = calcQuotas(outpostThreshold, quota);
 
             Arrays.sort(clusters);
+            int shipIndex = 0;
 
-            int collected = 0;
-
-            while(collected <= outpostThreshold){
+            for (int i = 0; i < clusters.length; i++) {
+                ResourceCluster current = clusters[i];
+                if(quotaInts[current.rID] != 0){
+                    int j = 0;
+                    for (; j < ships.length; j++) {
+                        if(ships[i].currentInHold + current.rAmount < ships[i].capacity){
+                            break;
+                        }
+                    }
+                    ships[j].setPosition(current.x, current.y, current.z);
+                    ships[j].addToPath(current.rName);
+                }
                 
             }
-
-
         }catch (Exception e){
             System.out.println("file not found");
         }
