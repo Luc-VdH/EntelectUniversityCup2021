@@ -182,7 +182,26 @@ public class RunResourceCollect {
             int pts = (int)(Math.pow((ci.PP + ci.PC - ci.PT*0.1)*ci.BM, ci.rID) - dist*0.01);
             //System.out.println(ci.PP + " - " + ci.PC + " - " + ci.PT + " - " + ci.BM);
             //System.out.println(pts + " = " + ((ci.PP + ci.PC - ci.PT*0.1)*ci.BM) + " - " + (dist*0.1) + ": ID= " + ci.rID);
-            
+            if(ci.rID == 10){
+                pts = 100000;
+            }
+            if(ci.rID == 9){
+                pts = 900000000;
+            }
+            if(ci.rID == 8){
+                pts = 800000000;
+            }
+            if(ci.rID == 7){
+                pts = 7000000;
+            }
+            if(ci.rID == 6){
+                pts = 6000000;
+            }
+            if(ci.rID == 4){
+                pts = 5000000;
+            }
+
+
             c.get(i).setPoints(pts);
         }
     }
